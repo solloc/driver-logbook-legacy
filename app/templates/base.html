@@ -1,14 +1,16 @@
 <html>
     <head>
-        <title>Driver Logbook</title>
+        <title>
+            Driver Logbook{% if title %}: {{ title }}{% endif %}
+        </title>
     </head>
     <body>
         <!-- Navigation -->
         <div>
             <ul>
-                <li>Home</li>
-                <li>Login</li>
-                <li>Logout</li>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
                 <li>Register</li>
             </ul>
         </div>
@@ -16,6 +18,5 @@
             <p>Content:</p>
             <p>{% block app_content %}{% endblock %}</p>
         </div>
-        
     </body>
 </html>
