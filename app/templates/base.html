@@ -15,6 +15,19 @@
             </ul>
         </div>
         <!-- Content -->
+        <hr/>
+        <div>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+        </div>
+        <hr/>
         <div>
             <p>Content:</p>
             <p>{% block app_content %}{% endblock %}</p>
