@@ -11,9 +11,10 @@
                 <li><a href="{{ url_for('index') }}">Home</a></li>
                 <li><a href="{{ url_for('login') }}">Login</a></li>
                 <li><a href="{{ url_for('logout') }}">Logout</a></li>
-                <li>Register</li>
+                <li><a href="{{ url_for('register') }}">Register</a></li>
             </ul>
         </div>
+        <!-- Content -->
         <div>
             <p>Content:</p>
             <p>{% block app_content %}{% endblock %}</p>
