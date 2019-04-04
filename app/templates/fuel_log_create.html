@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<h1>Create log record</h1>
+<p>
+    <form action="" method="POST">
+        {{ form.csrf_token }}
+        <p>
+            {{ form.distance.label}}:<br/>
+            {{ form.distance }}
+        </p>
+        <p>
+            {{ form.quantity.label }}:<br/>
+            {{ form.quantity }}
+        </p>
+        <p>
+            {{ form.recorded.label }}:<br/>
+            {{ form.recorded }}
+        </p>
+        <p>
+            {{ form.submit }}
+        </p>        
+    </form>
+</p>
+{% endblock %}

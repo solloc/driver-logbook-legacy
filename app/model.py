@@ -22,3 +22,14 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+
+class FuelLog(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    distance = db.Column(db.Numeric)
+    quantity = db.Column(db.Numeric)
+    recorded = db.Column(db.Date)
+
+    def __repr__(self):
+        return '<FuelLog {}>'.format(self.recorded)

@@ -1,7 +1,7 @@
 from app import app, db
 from flask import render_template, redirect, url_for, flash
-from app.forms import RegistrationForm, LoginForm
-from app.model import User
+from app.forms import RegistrationForm, LoginForm, FuelLogCreateForm
+from app.model import User, FuelLog
 from flask_login import login_required, login_user, current_user, logout_user
 
 
@@ -43,3 +43,25 @@ def register():
         db.session.commit()
         return redirect('/login')
     return render_template('register.html', form=form)
+
+
+@app.route('/fuel-logs')
+@login_required
+def fuelLogs():
+    fuelLogs = FuelLog.query.filter_by(user_id=current_user.id)
+    return render_template('fuel_log_records.html', fuelLogs=fuelLogs)
+
+
+@app.route('/create-fuel-log', methods=['GET', 'POST'])
+@login_required
+def createFuelLogs():
+    form = FuelLogCreateForm()
+    if form.validate_on_submit():
+        fuelLog = FuelLog(user_id=current_user.id,
+                          distance=form.distance.data,
+                          quantity=form.quantity.data,
+                          recorded=form.recorded.data)
+        db.session.add(fuelLog)
+        db.session.commit()
+        return redirect(url_for('fuelLogs'))
+    return render_template('fuel_log_create.html', form=form)

@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, DecimalField, \
+                    DateField
 from wtforms.validators import DataRequired, EqualTo
 
 
@@ -17,3 +18,10 @@ class LoginForm(FlaskForm):
     username = StringField('Username', [DataRequired()])
     password = PasswordField('Password', [DataRequired()])
     submit = SubmitField('Sign in')
+
+
+class FuelLogCreateForm(FlaskForm):
+    distance = DecimalField('Distance', [DataRequired()])
+    quantity = DecimalField('Quantity', [DataRequired()])
+    recorded = DateField('Recorded', [DataRequired()])
+    submit = SubmitField('Create')
