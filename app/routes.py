@@ -65,3 +65,11 @@ def createFuelLogs():
         db.session.commit()
         return redirect(url_for('fuelLogs'))
     return render_template('fuel_log_create.html.j2', form=form)
+
+
+# should only be allowed as admin
+# could be implemented with decorators, just start with checks
+@app.route('/create-user')
+@login_required
+def createUser():
+    return render_template('user_create.html.j2')
