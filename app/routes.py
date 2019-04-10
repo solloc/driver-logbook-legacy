@@ -9,7 +9,7 @@ from flask_login import login_required, login_user, current_user, logout_user
 @app.route('/index')
 @login_required
 def index():
-    return render_template('index.html', title='Home')
+    return render_template('index.html.j2', title='Home')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -24,7 +24,7 @@ def login():
             return redirect(url_for('login'))
         login_user(user)
         return redirect(url_for('index'))
-    return render_template('login.html', form=form)
+    return render_template('login.html.j2', form=form)
 
 
 @app.route('/logout')
@@ -42,14 +42,14 @@ def register():
         db.session.add(user)
         db.session.commit()
         return redirect('/login')
-    return render_template('register.html', form=form)
+    return render_template('register.html.j2', form=form)
 
 
 @app.route('/fuel-logs')
 @login_required
 def fuelLogs():
     fuelLogs = FuelLog.query.filter_by(user_id=current_user.id)
-    return render_template('fuel_log_records.html', fuelLogs=fuelLogs)
+    return render_template('fuel_log_records.html.j2', fuelLogs=fuelLogs)
 
 
 @app.route('/create-fuel-log', methods=['GET', 'POST'])
@@ -64,4 +64,4 @@ def createFuelLogs():
         db.session.add(fuelLog)
         db.session.commit()
         return redirect(url_for('fuelLogs'))
-    return render_template('fuel_log_create.html', form=form)
+    return render_template('fuel_log_create.html.j2', form=form)
