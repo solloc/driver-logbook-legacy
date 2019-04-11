@@ -12,7 +12,7 @@ def index():
     return render_template('index.html.j2', title='Home')
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/users/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -27,13 +27,13 @@ def login():
     return render_template('login.html.j2', form=form)
 
 
-@app.route('/logout')
+@app.route('/users/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/users/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -52,7 +52,7 @@ def fuelLogs():
     return render_template('fuel_log_records.html.j2', fuelLogs=fuelLogs)
 
 
-@app.route('/create-fuel-log', methods=['GET', 'POST'])
+@app.route('/fuel-logs/new', methods=['GET', 'POST'])
 @login_required
 def createFuelLogs():
     form = FuelLogCreateForm()
@@ -69,7 +69,14 @@ def createFuelLogs():
 
 # should only be allowed as admin
 # could be implemented with decorators, just start with checks
-@app.route('/create-user')
+@app.route('/users/new')
 @login_required
 def createUser():
     return render_template('user_create.html.j2')
+
+
+@app.route('/users')
+@login_required
+def listUsers():
+    users = User.query.all()
+    return render_template('users_list.html.j2', users=users)
