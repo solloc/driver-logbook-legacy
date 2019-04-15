@@ -6,6 +6,8 @@
 #
 alembic==1.0.9            # via flask-migrate
 click==7.0                # via flask
+entrypoints==0.3          # via flake8
+flake8==3.7.7
 flask-login==0.4.1
 flask-migrate==2.4.0
 flask-sqlalchemy==2.3.2
@@ -15,6 +17,9 @@ itsdangerous==1.1.0       # via flask
 jinja2==2.10              # via flask
 mako==1.0.9               # via alembic
 markupsafe==1.1.1         # via jinja2, mako
+mccabe==0.6.1             # via flake8
+pycodestyle==2.5.0        # via flake8
+pyflakes==2.1.1           # via flake8
 python-dateutil==2.8.0    # via alembic
 python-dotenv==0.10.1
 python-editor==1.0.4      # via alembic
