@@ -1,6 +1,6 @@
 from app import db
 from flask import render_template, redirect, url_for, flash
-from app.forms import RegistrationForm, LoginForm
+from app.forms import LoginForm, CreateUserForm
 from app.model import User
 from flask_login import login_required, login_user, current_user, logout_user
 from app.users import bp
@@ -35,21 +35,16 @@ def logout():
     return redirect(url_for('index'))
 
 
-@bp.route('/register', methods=['GET', 'POST'])
-def register():
-    form = RegistrationForm()
+# should only be allowed as admin
+# could be implemented with decorators, just start with checks
+@bp.route('/new', methods=['GET', 'POST'])
+@login_required
+def createUser():
+    form = CreateUserForm()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('users.login'))
-    return render_template('register.html.j2', form=form)
-
-
-# should only be allowed as admin
-# could be implemented with decorators, just start with checks
-@bp.route('/new')
-@login_required
-def createUser():
-    return render_template('user_create.html.j2')
+        return redirect(url_for('users.listUsers'))
+    return render_template('user_create.html.j2', form=form)
