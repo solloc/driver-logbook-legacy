@@ -6,6 +6,7 @@ from flask_login import login_required, login_user, current_user, logout_user
 from app.users import bp
 
 
+@bp.route('/index')
 @bp.route('/')
 @login_required
 def listUsers():
@@ -13,7 +14,6 @@ def listUsers():
     return render_template('users_list.html.j2', users=users)
 
 
-# @app.route('/login', methods=['GET', 'POST'])
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -23,7 +23,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
-            return redirect(url_for('login'))
+            return redirect(url_for('users.login'))
         login_user(user)
         return redirect(url_for('index'))
     return render_template('login.html.j2', form=form)
@@ -43,7 +43,7 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        return redirect('/login')
+        return redirect(url_for('users.login'))
     return render_template('register.html.j2', form=form)
 
 
