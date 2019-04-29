@@ -14,7 +14,7 @@
             <td align="right">{{ user.id }}</td>
             <td>{{ user.username }}</td>
             <td>{{ user.email if user.email else '' }}</td>
-            <td>{{ user.admin if user.admin else '' }}</td>
+            <td align="center">{{ "&#9989;" if user.admin else '' }}</td>
         </tr>
         {% endfor %}
     </tbody>
