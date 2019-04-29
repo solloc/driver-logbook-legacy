@@ -5,30 +5,34 @@
 <p><a href="{{ url_for('createFuelLogs') }}">Create</a></p>
 <p>
     <table border=1>
-        <th>ID</th>
-        <th>User-ID</th>
-        <th>Distance</th>
-        <th>Quantity</th>
-        <th>Recorded</th>
-        {% for fuelLog in fuelLogs %}
-        <tr>
-            <td>
-                {{ fuelLog.id }}
-            </td>
-            <td>
-                {{ fuelLog.user_id }}
-            </td>
-            <td>
-                {{ fuelLog.distance }}
-            </td>
-            <td>
-                {{ fuelLog.quantity }}
-            </td>
-            <td>
-                {{ fuelLog.recorded }}
-            </td>
-        </tr>
-        {% endfor %}
+        <thead>
+            <th>ID</th>
+            <th>User-ID</th>
+            <th>Distance</th>
+            <th>Quantity</th>
+            <th>Recorded</th>
+        </thead>
+        <tbody>
+            {% for fuelLog in fuelLogs %}
+            <tr>
+                <td align="right">
+                    {{ fuelLog.id }}
+                </td>
+                <td align="right">
+                    {{ fuelLog.user_id }}
+                </td>
+                <td align="right">
+                    {{ fuelLog.distance|round(1) }} km
+                </td>
+                <td align="right">
+                    {{ fuelLog.quantity|round(2) }} L
+                </td>
+                <td>
+                    {{ fuelLog.recorded }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
 </p>
 {% endblock %}

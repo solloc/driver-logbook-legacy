@@ -1,17 +1,17 @@
 {% extends "base.html.j2" %}
 
 {% block app_content %}
-<table>
+<table border=1>
     <thead>
-        <td>ID</td>
-        <td>Name</td>
-        <td>E-Mail</td>
-        <td>Admin</td>
+        <th>ID</th>
+        <th>Name</th>
+        <th>E-Mail</th>
+        <th>Admin</th>
     </thead>
     <tbody>
         {% for user in users %}
         <tr>
-            <td>{{ user.id }}</td>
+            <td align="right">{{ user.id }}</td>
             <td>{{ user.username }}</td>
             <td>{{ user.email if user.email else '' }}</td>
             <td>{{ user.admin if user.admin else '' }}</td>
